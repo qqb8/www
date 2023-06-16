@@ -1,0 +1,19 @@
+---
+- name: "Download & Install"
+  hosts: myhosts
+  gather_facts: false
+  tasks:
+    - name: install tar
+      become: true
+      ansible.builtin.dnf:
+        name: tar
+        state: present
+    - name: create directory
+      ansible.builtin.file:
+        path: "./kafka"
+        state: directory
+    - name: Download & Unarchive
+      ansible.builtin.unarchive:
+        src: https://downloads.apache.org/kafka/3.4.1/kafka-3.4.1-src.tgz
+        dest: ./kafka
+        remote_src: yes

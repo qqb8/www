@@ -1,0 +1,9 @@
+---
+- name: "Install Apache"
+  hosts: myhosts
+  vars:
+    addr: "http://{{ ansible_facts.all_ipv4_addresses[0] }}"
+  become: true
+  gather_facts: true
+  roles:
+    - apache

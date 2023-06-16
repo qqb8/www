@@ -1,0 +1,20 @@
+all:
+  children:
+    myhosts:
+      children:
+#        host1:
+#          hosts:
+#            192.168.91.143:
+#        host2:
+#          hosts:
+#            192.168.91.144:
+#        host3:
+#          hosts:
+#            192.168.91.135:
+        host4:
+          hosts:
+            192.168.91.135:
+              ansible_user: user28
+#        host5:
+#          hosts:
+#            192.168.91.142:

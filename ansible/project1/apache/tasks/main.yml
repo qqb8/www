@@ -1,0 +1,30 @@
+---
+# tasks file for apache
+- name: "Install Apache"
+  dnf:
+    name:
+      - httpd
+    state: present
+- name: permit traffic in default zone for http service
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+- name: "Restart service iptables"
+  service:
+    name: firewalld
+    state: restarted
+- name: "Restart service Apache"
+  service:
+    name: httpd
+    state: restarted
+- name: "Show current IP"
+  debug:
+    msg: "{{ addr }}"
+- name: "write ansible_facts in /var/www/html/index.html"
+  ansible.builtin.template:
+    src: templates/hostname.j2
+    dest: /var/www/html/index.html
+- name: Check that you can connect (GET) to a page and it returns a status 200
+  ansible.builtin.uri:
+    url: "{{ addr }}"

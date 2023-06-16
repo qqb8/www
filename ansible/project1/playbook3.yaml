@@ -1,0 +1,11 @@
+---
+- name: "Change MOTD"
+  hosts: myhosts
+  vars:
+    user: "{{ ansible_env.USER }}"
+  tasks:
+    - name: Save $motd to file
+      become: true
+      ansible.builtin.copy:
+        content: "{{ ansible_facts.all_ipv4_addresses[0] }} {{ ansible_hostname }} \nHello, {{ user }}! \n"
+        dest: '/etc/motd'

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "new22.fullname" . }}
+  labels:
+    {{- include "new22.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 6379
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "new22.selectorLabels" . | nindent 4 }}

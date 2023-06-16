@@ -1,0 +1,15 @@
+---
+- name: "Tuned"
+  hosts: myhosts
+  gather_facts: false
+  tasks:
+    - name: install tuned
+      become: true
+      ansible.builtin.dnf:
+        name: tuned
+        state: present
+    - name: Start service tuned, if not started
+      become: true
+      ansible.builtin.service:
+        name: tuned
+        state: started
